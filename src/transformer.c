@@ -282,7 +282,7 @@ void build_transformer(Transformer *t, const char *path, int quantize_flag) {
 
     /* v1+ files state the layout explicitly: read the shared flag BEFORE
      * measuring the blob, so the header-end position is exact */
-    int has_freq, has_wcls;
+    int has_freq = 0, has_wcls = 0;
     if (version >= 1) {
         has_freq = 0;
         if (fread(&p->shared_classifier, sizeof(int), 1, file) != 1) {
