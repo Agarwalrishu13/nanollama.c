@@ -280,7 +280,18 @@ void build_transformer(Transformer *t, const char *path, int quantize_flag) {
     size_t freq = 2 * S * (size_t)(head_size / 2);/* legacy RoPE tables     */
     size_t vd = V * dim;                          /* standalone classifier  */
 
-    /* actual number of floats after the header */
+    /* v1+ files state the layout explicitly: read the shared flag BEFORE
+     * measuring the blob, so the header-end position is exact */
+    int has_freq, has_wcls;
+    if (version >= 1) {
+        has_freq = 0;
+        if (fread(&p->shared_classifier, sizeof(int), 1, file) != 1) {
+            NL_ERROR("failed to read shared_classifier flag");
+        }
+        has_wcls = !p->shared_classifier;
+    }
+
+    /* actual number of floats after the (complete) header */
     long file_pos = ftell(file);
     fseek(file, 0, SEEK_END);
     long file_size = ftell(file);
@@ -290,14 +301,7 @@ void build_transformer(Transformer *t, const char *path, int quantize_flag) {
     }
     size_t n_floats = (size_t)(file_size - file_pos) / sizeof(float);
 
-    int has_freq, has_wcls;
     if (version >= 1) {
-        /* newer exporters state the layout explicitly */
-        has_freq = 0;
-        if (fread(&p->shared_classifier, sizeof(int), 1, file) != 1) {
-            NL_ERROR("failed to read shared_classifier flag");
-        }
-        has_wcls = !p->shared_classifier;
         size_t expect = base + (has_wcls ? vd : 0);
         if (n_floats != expect) {
             fprintf(stderr, "[nanollama] warning: header promises %zu floats, file has %zu\n",
