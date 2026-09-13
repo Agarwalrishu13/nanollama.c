@@ -1,0 +1,21 @@
+# model weights are downloaded, never committed
+models/*.bin
+models/*.gguf
+
+# build artifacts
+*.o
+*.obj
+nanollama
+nanollama.exe
+*.dSYM/
+debug/
+build/
+
+# benchmark intermediate output
+benchmark/results.csv
+
+# editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

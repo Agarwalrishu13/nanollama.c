@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (portable)
+        run: make portable
+      - name: Smoke test — generate text from a 260K model
+        run: |
+          curl -L -o models/stories260K.bin https://huggingface.co/karpathy/tinyllamas/resolve/main/stories260K/stories260K.bin
+          curl -L -o models/tok512.bin     https://huggingface.co/karpathy/tinyllamas/resolve/main/stories260K/tok512.bin
+          ./nanollama generate -m models/stories260K.bin -z models/tok512.bin -n 32 -s 42 | tee out.txt
+          grep -q . out.txt
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (portable, clang)
+        run: make portable CC=clang
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          install: mingw-w64-ucrt-x86_64-gcc make
+      - shell: msys2 {0}
+        run: |
+          make portable
+          curl -L -o models/stories260K.bin https://huggingface.co/karpathy/tinyllamas/resolve/main/stories260K/stories260K.bin
+          curl -L -o models/tok512.bin     https://huggingface.co/karpathy/tinyllamas/resolve/main/stories260K/tok512.bin
+          ./nanollama generate -m models/stories260K.bin -z models/tok512.bin -n 16 -s 42
