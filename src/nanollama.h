@@ -17,10 +17,10 @@
 #ifndef NANOLLAMA_H
 #define NANOLLAMA_H
 
-/* strict -std=c11 hides POSIX clock_gettime behind a feature macro — and it
- * must be defined before the first system header is included */
+/* strict -std=c11 hides POSIX clock_gettime/snprintf/unistd behind a feature
+ * macro — and it must be defined before the first system header is included */
 #ifndef _POSIX_C_SOURCE
-  #define _POSIX_C_SOURCE 199309L
+  #define _POSIX_C_SOURCE 200809L
 #endif
 
 #include <stdio.h>
