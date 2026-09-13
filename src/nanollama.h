@@ -25,6 +25,11 @@
 #include <stdint.h>
 #include <time.h>
 
+/* strict -std=c11 hides POSIX clock_gettime behind a feature macro */
+#ifndef _POSIX_C_SOURCE
+  #define _POSIX_C_SOURCE 199309L
+#endif
+
 /* ---------------------------------------------------------------------------
  * Portable wall-clock timer (ms). Windows lacks clock_gettime; POSIX lacks
  * QueryPerformanceCounter. Both give us sub-millisecond resolution.
