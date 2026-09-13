@@ -18,9 +18,13 @@
 #define NANOLLAMA_H
 
 /* strict -std=c11 hides POSIX clock_gettime/snprintf/unistd behind a feature
- * macro — and it must be defined before the first system header is included */
+ * macro — and it must be defined before the first system header is included.
+ * Apple additionally needs _DARWIN_C_SOURCE for sysconf(_SC_NPROCESSORS_ONLN). */
 #ifndef _POSIX_C_SOURCE
   #define _POSIX_C_SOURCE 200809L
+#endif
+#ifdef __APPLE__
+  #define _DARWIN_C_SOURCE 1
 #endif
 
 #include <stdio.h>
