@@ -56,8 +56,10 @@ void build_tokenizer(Tokenizer *t, const char *path, int vocab_size) {
      * count (it's a leftover from an older exporter). The entry stream after
      * it is self-describing — (float score, int len, bytes) repeated to EOF —
      * so we just walk it and count. */
-    int first_int;
-    (void)fread(&first_int, sizeof(int), 1, file); /* skipped */
+    int first_int = 0;
+    if (fread(&first_int, sizeof(int), 1, file) != 1) {
+        NL_ERROR("tokenizer file is empty or unreadable");
+    }
     (void)first_int;
 
     int cap = 1024;
