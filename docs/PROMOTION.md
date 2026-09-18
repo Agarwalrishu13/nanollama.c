@@ -8,8 +8,16 @@ time, 24h apart, reply to every comment for 48h.
 - [x] Topics/tags on both repos (llm, inference, from-scratch, education…)
 - [x] Cross-links between the repos; both pinned on the profile
 - [x] Profile README with the nano-universe story
-- [x] PR to codecrafters-io/build-your-own-x (#2011) — "Build your own AI Model"
-- [x] PR to karpathy/llama2.c (#583) — the ecosystem list
+- [x] **PR tracker (7 open):**
+      | # | list | stars | repos in PR |
+      |---|---|---|---|
+      | [#2011](https://github.com/codecrafters-io/build-your-own-x/pull/2011) | codecrafters-io/build-your-own-x | ~300k | both |
+      | [#583](https://github.com/karpathy/llama2.c/pull/583) | karpathy/llama2.c ecosystem | ~28k | both |
+      | [#825](https://github.com/Hannibal046/Awesome-LLM/pull/825) | Hannibal046/Awesome-LLM | ~27k | both |
+      | [#1896](https://github.com/fffaraz/awesome-cpp/pull/1896) | fffaraz/awesome-cpp | ~60k | nanollama.c |
+      | [#427](https://github.com/keon/awesome-nlp/pull/427) | keon/awesome-nlp | ~15k | nanobrain |
+      | [#1398](https://github.com/steven2358/awesome-generative-ai/pull/1398) | steven2358/awesome-generative-ai | ~13k | nanollama.c |
+      | [#5](https://github.com/marco-jeffrey/awesome-llm-resources/pull/5) | marco-jeffrey/awesome-llm-resources | ~108 | both |
 - [ ] (you) upload social preview images: Repo → Settings → Social preview
       (use docs/demo.gif frames or benchmark charts as the image)
 - [ ] (you) enable Discussions on nanollama.c (Settings → Features)
