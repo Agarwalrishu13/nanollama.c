@@ -16,6 +16,11 @@ int8 quantization · zero libraries, zero OpenMP, zero API keys.
 
 *Real output, generated on the CPU by this engine, from a 15M-parameter model.*
 
+> 🧠 **These aren't just karpathy's models.** The models running here can be
+> trained by [nanobrain](https://github.com/Agarwalrishu13/nanobrain) — my
+> from-scratch training pipeline (transformer + tokenizer + exporter). Engine
+> and brain, both built by the same person.
+
 </div>
 
 ---
